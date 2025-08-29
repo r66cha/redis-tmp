@@ -1,0 +1,58 @@
+1. Работа с ключами (Key API)
+SET key value              # создать или обновить строковое значение
+GET key                    # получить значение
+DEL key                    # удалить ключ
+EXISTS key                 # проверить, есть ли ключ
+EXPIRE key 60              # задать TTL 60 секунд
+TTL key                    # узнать время жизни ключа
+KEYS *                     # список всех ключей (лучше не использовать в проде)
+SCAN 0                     # безопасный обход ключей по батчам
+
+
+2. Строки (Strings)
+SET user:1 "Name"
+GET user:1
+APPEND user:1 " SName"      # дописать строку
+MGET user:1 user:2          # получить несколько ключей
+INCR counter                # увеличить число
+DECR counter                # уменьшить число
+
+
+3. Хэши (Hashes)
+HSET user:1 name "Name" age 29 city "Москва"      # создать/обновить поля
+HGET user:1 name                                  # получить одно поле
+HGETALL user:1                                    # получить весь объект
+HMGET user:1 name age                             # несколько полей
+HDEL user:1 city                                  # удалить поле
+HEXISTS user:1 age                                # проверить наличие поля
+HINCRBY user:1 age 1                              # увеличить числовое поле
+
+
+4. Списки (Lists — как очереди)
+LPUSH queue "task1" "task2"   # добавить слева (как стек)
+RPUSH queue "task3"           # добавить справа (как очередь)
+LPOP queue                    # забрать слева
+RPOP queue                    # забрать справа
+LRANGE queue 0 -1             # получить все элементы
+LLEN queue                    # длина списка
+
+
+5. Множества (Sets — уникальные значения)
+ZADD leaderboard 100 "user1" 200 "user2"
+ZRANGE leaderboard 0 -1 WITHSCORES     # получить в порядке возрастания
+ZREVRANGE leaderboard 0 -1 WITHSCORES  # получить в порядке убывания
+ZSCORE leaderboard "user1"             # узнать баллы
+ZINCRBY leaderboard 50 "user1"         # увеличить счёт
+
+
+6. Отсортированные множества (Sorted Sets — рейтинги, топы)
+ZADD leaderboard 100 "user1" 200 "user2"
+ZRANGE leaderboard 0 -1 WITHSCORES     # получить в порядке возрастания
+ZREVRANGE leaderboard 0 -1 WITHSCORES  # получить в порядке убывания
+ZSCORE leaderboard "user1"             # узнать баллы
+ZINCRBY leaderboard 50 "user1"         # увеличить счёт
+
+
+7. Pub/Sub (система сообщений)
+SUBSCRIBE channel         # подписка
+PUBLISH channel "Hello"   # отправка
