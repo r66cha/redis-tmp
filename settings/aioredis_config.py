@@ -2,7 +2,7 @@
 
 # -- Imports
 
-import aioredis
+import redis.asyncio as redis
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 # -- Exports
@@ -28,7 +28,7 @@ class RedisManager(BaseSettings):
         return f"{self.DIALECT}://{self.REDIS_HOST}:{self.REDIS_PORT}"
 
     def get_aioredis_client(self):
-        return aioredis.from_url(
+        return redis.from_url(
             url=self._url,
             db=0,
             decode_responses=True,
