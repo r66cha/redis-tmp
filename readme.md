@@ -1,0 +1,1 @@
+Redis simple template.
